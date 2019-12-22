@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-import "babel-polyfill";
+import "core-js/features/promise";
 import { copyAssetsToDist } from "./assets";
 import { build } from "./build";
 import { getConfig } from "./config";
@@ -23,6 +23,7 @@ getConfig()
         .then(() => {
           console.log("");
           console.log("BUILT & DEPLOYED SUCCESSFULLY");
+          console.log("");
           process.exit(0);
         })
         .catch(exitUnsuccessfully);
