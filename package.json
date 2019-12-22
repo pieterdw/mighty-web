@@ -37,6 +37,7 @@
   "dependencies": {
     "babel-polyfill": "^6.26.0",
     "ftp-deploy": "^2.3.6",
+    "parcel": "^2.0.0-alpha.3.2",
     "read-package-json": "^2.1.1"
   },
   "devDependencies": {
