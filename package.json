@@ -1,6 +1,6 @@
 {
   "name": "mighty-web",
-  "version": "0.0.13",
+  "version": "0.0.14",
   "description": "Quick deployment for web assets",
   "main": "dist/index.js",
   "bin": {
@@ -37,12 +37,14 @@
   "dependencies": {
     "babel-polyfill": "^6.26.0",
     "ftp-deploy": "^2.3.6",
-    "mighty-sync": "^1.0.0",
+    "ncp": "^2.0.0",
     "parcel": "^2.0.0-alpha.3.2",
+    "promise-ftp-common": "^1.1.5",
     "read-package-json": "^2.1.1"
   },
   "devDependencies": {
     "@types/jest": "^24.0.24",
+    "@types/ncp": "^2.0.3",
     "@types/node": "^12.12.21",
     "jest": "^24.9.0",
     "ts-node": "^8.5.4",
