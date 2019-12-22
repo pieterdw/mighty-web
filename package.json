@@ -1,6 +1,6 @@
 {
   "name": "mighty-web",
-  "version": "0.0.17",
+  "version": "0.0.18",
   "description": "Quick deployment for web assets",
   "main": "dist/index.js",
   "bin": {
@@ -36,10 +36,10 @@
   },
   "dependencies": {
     "babel-polyfill": "^6.26.0",
+    "del": "^5.1.0",
     "ftp-deploy": "^2.3.6",
     "ncp": "^2.0.0",
     "parcel": "^2.0.0-alpha.3.2",
-    "parcel-plugin-clean-dist": "^0.0.6",
     "promise-ftp-common": "^1.1.5",
     "read-package-json": "^2.1.1"
   },
