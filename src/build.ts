@@ -11,7 +11,9 @@ export const build = () => {
     mightySync.stdout.on("data", chunk => {
       process.stdout.write(chunk);
     });
-    mightySync.stderr.on("data", console.error);
+    mightySync.stderr.on("data", chunk => {
+      process.stderr.write(chunk);
+    });
     mightySync.on("error", console.error);
     mightySync.on("close", code => {
       if (code !== 0) {

@@ -12,6 +12,7 @@ console.log("Mighty Web");
 
 getConfig()
   .then(config => {
+    console.log("Building and copying files...");
     let firstReady = false;
     const continueDeploy = () => {
       if (!firstReady) {
