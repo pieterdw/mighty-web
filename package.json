@@ -1,24 +1,48 @@
 {
   "name": "mighty-web",
-  "version": "0.0.1",
+  "version": "0.0.7",
   "description": "Quick deployment for web assets",
   "main": "dist/index.js",
   "bin": {
     "mighty-web": "dist/index.js"
   },
-  "scripts": {},
+  "repository": "https://gitlab.com/straffekoffie/mighty-web.git",
+  "scripts": {
+    "start": "ts-node ./src/index.ts",
+    "build": "tsc",
+    "test": "jest",
+    "local": "yarn build && npm pack && yarn global add C:\\Dev\\Tools\\mighty-web\\mighty-web-0.0.3.tgz",
+    "pub": "yarn version --patch && yarn build && npm publish"
+  },
   "keywords": [
-    "mighty-sync",
-    "ftp",
-    "sync",
     "deploy",
+    "ftp",
+    "mighty-sync",
+    "sync",
     "wp",
     "wordpress"
   ],
   "author": "Pieter De Witte <pieter@straffekoffie.com>",
   "license": "MIT",
+  "engines": {
+    "node": ">=8.x"
+  },
+  "targets": {
+    "main": {
+      "node": [
+        "^8.0.0"
+      ]
+    }
+  },
+  "dependencies": {
+    "babel-polyfill": "^6.26.0",
+    "ftp-deploy": "^2.3.6",
+    "read-package-json": "^2.1.1"
+  },
   "devDependencies": {
+    "@types/jest": "^24.0.24",
     "@types/node": "^12.12.21",
+    "jest": "^24.9.0",
     "ts-node": "^8.5.4",
     "typescript": "^3.7.4"
   }
