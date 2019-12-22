@@ -20,6 +20,9 @@ export const deploy = (config: Config): Promise<any> => {
   const ftpDeploy = new FtpDeploy();
   return ftpDeploy
     .deploy(ftpConfig)
-    .then(console.log)
+    .then(result => {
+      console.log("Ready deploying to FTP... ");
+      console.log(result);
+    })
     .catch(err => console.log(err));
 };

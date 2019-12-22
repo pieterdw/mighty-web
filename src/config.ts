@@ -10,13 +10,17 @@ export interface Config {
 
 export const getConfig = (): Promise<Config> => {
   return new Promise((resolve, reject) => {
-    readPackageJson("./package.json", console.error, false, (er, data) => {
-      if (er) {
-        return reject(er);
+    readPackageJson("./package.json", console.error, false, (err, data) => {
+      if (err) {
+        console.error("Couldn't read package.json: ", err);
+        return reject(err);
       } else {
         const config = data["web"];
-        if (!config) {
-          return reject("No web section in package.json!");
+        if (process.env.NODE_ENV === "production") {
+          if (!config) {
+            console.error("No web section in package.json!");
+            return reject("No web section in package.json!");
+          }
         }
         return resolve(config);
       }
