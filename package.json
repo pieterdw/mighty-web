@@ -1,6 +1,6 @@
 {
   "name": "mighty-web",
-  "version": "0.0.9",
+  "version": "0.0.10",
   "description": "Quick deployment for web assets",
   "main": "dist/index.js",
   "bin": {
