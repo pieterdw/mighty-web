@@ -1,39 +1,59 @@
 #!/usr/bin/env node
 
 import "core-js/features/promise";
+import minimist from "minimist";
 import { copyAssetsToDist } from "./assets";
-import { build } from "./build";
+import { build as doBuild } from "./build";
 import { getConfig } from "./config";
-import { deploy } from "./deploy";
-
-const exitUnsuccessfully = () => process.exit(1);
+import { deploy as doDeploy } from "./deploy";
 
 console.log("Mighty Web");
 
-getConfig()
-  .then(config => {
-    console.log("Building and copying files...");
-    let firstReady = false;
-    const continueDeploy = () => {
-      if (!firstReady) {
-        firstReady = true;
-        return;
-      }
+const deploy = (build: boolean) => {
+  console.log("DEPLOY");
 
-      deploy(config)
-        .then(() => {
-          console.log("");
-          console.log("BUILT & DEPLOYED SUCCESSFULLY");
-          console.log("");
-          process.exit(0);
-        })
+  getConfig()
+    .then(config => {
+      console.log("Building and copying files...");
+      let firstReady = false;
+      const continueDeploy = () => {
+        if (!firstReady && build) {
+          firstReady = true;
+          return;
+        }
+        doDeploy(config)
+          .then(() => {
+            console.log("");
+            console.log((build ? "BUILT & " : "") + "DEPLOYED SUCCESSFULLY");
+            console.log("");
+            process.exit(0);
+          })
+          .catch(exitUnsuccessfully);
+      };
+      if (build) {
+        doBuild()
+          .then(continueDeploy)
+          .catch(exitUnsuccessfully);
+      } else {
+        console.log("Skipping build...");
+      }
+      copyAssetsToDist()
+        .then(continueDeploy)
         .catch(exitUnsuccessfully);
-    };
-    build()
-      .then(continueDeploy)
-      .catch(exitUnsuccessfully);
-    copyAssetsToDist()
-      .then(continueDeploy)
-      .catch(exitUnsuccessfully);
-  })
-  .catch(exitUnsuccessfully);
+    })
+    .catch(exitUnsuccessfully);
+};
+
+const help = () => {
+  console.log("Execute mighty-web deploy to deploy an SK web app.");
+  console.log("Add --nobuild to skip the build step.");
+};
+
+const exitUnsuccessfully = () => process.exit(1);
+
+const argv = minimist(process.argv.slice(2));
+if (argv._.includes("deploy")) {
+  deploy(!argv.nobuild);
+} else {
+  help();
+}
