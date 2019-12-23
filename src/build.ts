@@ -5,8 +5,8 @@ export const build = () => {
     const mightySync = spawn(".\\node_modules\\.bin\\parcel.cmd", [
       "build",
       "./src/index.ts",
-      "--no-source-maps",
-      "--no-cache"
+      "--no-source-maps"
+      // "--no-cache"
     ]);
     mightySync.stdout.on("data", chunk => {
       process.stdout.write(chunk);
