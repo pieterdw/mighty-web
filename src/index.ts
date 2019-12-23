@@ -37,7 +37,7 @@ const deploy = (build: boolean) => {
       } else {
         console.log("Skipping build...");
       }
-      copyAssetsToDist()
+      copyAssetsToDist(build)
         .then(continueDeploy)
         .catch(exitUnsuccessfully);
     })
