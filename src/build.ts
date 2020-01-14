@@ -3,41 +3,29 @@ const fs = require("fs");
 
 export const build = () => {
   return new Promise((resolve, reject) => {
-    innerBuild("./src/index.ts")
-      .then(() => {
-        if (fs.existsSync(".\\src\\admin.ts")) {
-          innerBuild("./src/admin.ts")
-            .then(resolve)
-            .catch(reject);
-        } else {
-          resolve();
-        }
-      })
-      .catch(reject);
-  });
-};
-
-const innerBuild = (entryFileName: string) => {
-  return new Promise((resolve, reject) => {
-    const parcel = spawn(
+    const mightySync = spawn(
       ".\\node_modules\\.bin\\parcel.cmd",
-      ["build", entryFileName, "--no-source-maps", "--no-cache"].filter(x => x)
+      [
+        "build",
+        "./src/index.ts",
+        fs.existsSync(".\\src\\admin.ts") && "./src/admin.ts",
+        "--no-source-maps",
+        "--no-cache"
+      ].filter(x => x)
     );
-    parcel.stdout.on("data", chunk => {
+    mightySync.stdout.on("data", chunk => {
       process.stdout.write(chunk);
     });
-    parcel.stderr.on("data", chunk => {
+    mightySync.stderr.on("data", chunk => {
       process.stderr.write(chunk);
     });
-    parcel.on("error", console.error);
-    parcel.on("close", code => {
+    mightySync.on("error", console.error);
+    mightySync.on("close", code => {
       if (code !== 0) {
-        console.error(
-          `Parcel process exited with code ${code} (building ${entryFileName})`
-        );
-        reject(code);
+        console.error(`child process exited with code ${code}`);
+        reject();
       } else {
-        console.log("Done building " + entryFileName);
+        console.log("Done building");
         resolve();
       }
     });
