@@ -12,8 +12,6 @@ export const build = () => {
       )
       .concat(["--no-source-maps", "--no-cache"]);
 
-    console.log("Building: ", args);
-
     const parcel = spawn(".\\node_modules\\.bin\\parcel.cmd", args);
     parcel.stdout.on("data", chunk => {
       process.stdout.write(chunk);
