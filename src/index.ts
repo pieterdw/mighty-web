@@ -57,7 +57,6 @@ if (argv._.includes("deploy")) {
 } else if (argv._.includes("build")) {
   doBuild()
     .then(() => {
-      console.log("Done building");
       process.exit(0);
     })
     .catch(err => {

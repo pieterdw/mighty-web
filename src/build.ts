@@ -4,9 +4,12 @@ const fs = require("fs");
 export const build = () => {
   return new Promise((resolve, reject) => {
     const args = ["build"]
-      .concat(fs.readdirSync(".\\src\\"))
-      .filter(f => f.endsWith(".ts"))
-      .map(f => `.\\src\\${f}`)
+      .concat(
+        fs
+          .readdirSync(".\\src\\")
+          .filter(f => f.endsWith(".ts"))
+          .map(f => `.\\src\\${f}`)
+      )
       .concat(["--no-source-maps", "--no-cache"]);
 
     console.log("Building: ", args);
