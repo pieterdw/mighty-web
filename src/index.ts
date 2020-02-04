@@ -56,8 +56,14 @@ if (argv._.includes("deploy")) {
   deploy(!argv.nobuild);
 } else if (argv._.includes("build")) {
   doBuild()
-    .then(process.exit(0))
-    .catch(exitUnsuccessfully);
+    .then(() => {
+      console.log("Done building");
+      process.exit(0);
+    })
+    .catch(err => {
+      console.log("Error: ", err);
+      process.exit(1);
+    });
 } else {
   help();
 }
