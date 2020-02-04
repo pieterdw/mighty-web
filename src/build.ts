@@ -5,13 +5,11 @@ export const build = () => {
   return new Promise((resolve, reject) => {
     const mightySync = spawn(
       ".\\node_modules\\.bin\\parcel.cmd",
-      [
-        "build",
-        "./src/index.ts",
-        fs.existsSync(".\\src\\admin.ts") && "./src/admin.ts",
-        "--no-source-maps",
-        "--no-cache"
-      ].filter(x => x)
+      ["build"]
+        .concat(fs.readdirSync(".\\src\\"))
+        .filter(f => f.endsWith(".ts"))
+        .map(f => `.\\src\\${f}`)
+        .concat(["--no-source-maps", "--no-cache"])
     );
     mightySync.stdout.on("data", chunk => {
       process.stdout.write(chunk);

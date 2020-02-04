@@ -54,6 +54,10 @@ const exitUnsuccessfully = () => process.exit(1);
 const argv = minimist(process.argv.slice(2));
 if (argv._.includes("deploy")) {
   deploy(!argv.nobuild);
+} else if (argv._.includes("build")) {
+  doBuild()
+    .then(process.exit(0))
+    .catch(exitUnsuccessfully);
 } else {
   help();
 }
