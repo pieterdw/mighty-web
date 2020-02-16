@@ -13,6 +13,8 @@ export const build = () => {
       .concat(["--no-source-maps", "--no-cache"]);
 
     const parcel = spawn(".\\node_modules\\.bin\\parcel.cmd", args);
+    console.log(`Executing Parcel with args: ${args.join(' ')}`);
+    
     parcel.stdout.on("data", chunk => {
       process.stdout.write(chunk);
     });
