@@ -1,11 +1,14 @@
-const { spawn } = require("child_process");
-import { sync as del } from "del";
 import { ncp } from "ncp";
-const fs = require("fs");
+import fs from "fs";
+import { sync as deleteFiles } from "rimraf";
 
 export const copyAssetsToDist = (emptyFolderFirst: boolean) => {
   if (emptyFolderFirst) {
-    del(["./dist/**", "!./dist"]);
+    try {
+      deleteFiles("./dist/*");
+    } catch (err) {
+      console.log("Couldn't delete contents of dist folder: ", err);
+    }
   }
   return new Promise((resolve, reject) => {
     ncp("./public/", "./dist/", err => {

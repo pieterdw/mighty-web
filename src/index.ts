@@ -17,8 +17,6 @@ const deploy = (build: boolean) => {
       console.log("Building and copying files...");
       let firstReady = false;
       const continueDeploy = () => {
-        console.log('Continue with deploy');
-        
         if (!firstReady && build) {
           firstReady = true;
           return;
